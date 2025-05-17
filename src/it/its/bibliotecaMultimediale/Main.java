@@ -327,28 +327,28 @@ public class Main {
 
 
 //        aggiunta dei DVD nella biblioteca
-//        biblioteca.aggiungiMateriali(salvateIlSoldatoRyan);
-//        biblioteca.aggiungiMateriali(ilCavaliereOscuro);
-//        biblioteca.aggiungiMateriali(theHatefulEight);
-//        biblioteca.aggiungiMateriali(laStrada);
-//        biblioteca.aggiungiMateriali(cEraUnaVoltaIlWest);
-//        biblioteca.aggiungiMateriali(eStataLaManoDiDio);
-//        biblioteca.aggiungiMateriali(ilPortiereDiNotte);
-//        biblioteca.aggiungiMateriali(laBestiaNelCuore);
-//        biblioteca.aggiungiMateriali(leSorelleMacaluso);
-//        biblioteca.aggiungiMateriali(crimsonPeak);
+        biblioteca.aggiungiMateriali(salvateIlSoldatoRyan);
+        biblioteca.aggiungiMateriali(ilCavaliereOscuro);
+        biblioteca.aggiungiMateriali(theHatefulEight);
+        biblioteca.aggiungiMateriali(laStrada);
+        biblioteca.aggiungiMateriali(cEraUnaVoltaIlWest);
+        biblioteca.aggiungiMateriali(eStataLaManoDiDio);
+        biblioteca.aggiungiMateriali(ilPortiereDiNotte);
+        biblioteca.aggiungiMateriali(laBestiaNelCuore);
+        biblioteca.aggiungiMateriali(leSorelleMacaluso);
+        biblioteca.aggiungiMateriali(crimsonPeak);
 
 //        aggiunta dei libri nella biblioteca
-//        biblioteca.aggiungiMateriali(it);
-//        biblioteca.aggiungiMateriali(harryPotterPietraFilosofale);
-//        biblioteca.aggiungiMateriali(norwegianWood);
-//        biblioteca.aggiungiMateriali(theHandmaidsTale);
-//        biblioteca.aggiungiMateriali(mrsDalloway);
-//        biblioteca.aggiungiMateriali(ilNomeDellaRosa);
-//        biblioteca.aggiungiMateriali(nineteenEightyFour);
-//        biblioteca.aggiungiMateriali(laCasaDegliSpiriti);
-//        biblioteca.aggiungiMateriali(ilBaroneRampante);
-//        biblioteca.aggiungiMateriali(beloved);
+        biblioteca.aggiungiMateriali(it);
+        biblioteca.aggiungiMateriali(harryPotterPietraFilosofale);
+        biblioteca.aggiungiMateriali(norwegianWood);
+        biblioteca.aggiungiMateriali(theHandmaidsTale);
+        biblioteca.aggiungiMateriali(mrsDalloway);
+        biblioteca.aggiungiMateriali(ilNomeDellaRosa);
+        biblioteca.aggiungiMateriali(nineteenEightyFour);
+        biblioteca.aggiungiMateriali(laCasaDegliSpiriti);
+        biblioteca.aggiungiMateriali(ilBaroneRampante);
+        biblioteca.aggiungiMateriali(beloved);
 
 //        aggiunta delle riviste nella biblioteca
         biblioteca.aggiungiMateriali(nationalGeographic);
