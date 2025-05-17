@@ -27,6 +27,6 @@ public class Autore {
 
     @Override
     public String toString() {
-        return "Autore{nome='" + nome + "', cognome='" + cognome + "', dataDiNascita =" + dataDiNascita +"'}";
+        return  "NOME ='" + nome + "', COGNOME ='" + cognome + "', DATA DI NASCITA ='" + dataDiNascita +"'";
     }
 }

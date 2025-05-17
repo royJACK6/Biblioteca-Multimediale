@@ -47,6 +47,6 @@ public class DVD extends MaterialeBiblioteca{
 
     @Override
     public String toString() {
-        return "DVD{id ='" + getId() + "', titolo ='" + getTitolo() + "', annoDiRilascio ='" + getAnnoDiRilascio() +"', disponibilita ='" + getDisponibilita() + "regista ='" + regista + "', durata ='" + durata + "', genere ='" + genere + "'}";
+        return "DVD{ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() + "', DISPONIBILITA ='" + getDisponibilita() + "', DURATA ='" + durata + "', GENERE ='" + genere + "', REGISTA [" + regista +  "']}";
     }
 }

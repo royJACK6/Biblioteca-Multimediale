@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Rivista extends MaterialeBiblioteca{
     private final int numeroUscita;
-    private enum Periodicita{
-        SETTIMANALE, MENSILE, SEMETRALE, ANNUALE
+    public enum Periodicita{
+        SETTIMANALE, MENSILE, SEMESTRALE, ANNUALE
     }
     private final Periodicita periodicita;
 
@@ -41,6 +41,6 @@ public class Rivista extends MaterialeBiblioteca{
 
     @Override
     public String toString() {
-        return "Rivista {id ='" + getId() + "', titolo ='" + getTitolo() + "', annoDiRilascio ='" + getAnnoDiRilascio() +"', disponibilita ='" + getDisponibilita() + "', numeroUscita ='" + numeroUscita + "', periodicita ='" + periodicita + "'}";
+        return "Rivista {ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() +"', DISPONIBILITÀ ='" + getDisponibilita() + "', NUMERO USCITA ='" + numeroUscita + "', PERIODICITÀ [" + periodicita + "]}";
     }
 }

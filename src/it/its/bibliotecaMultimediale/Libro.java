@@ -43,6 +43,6 @@ public class Libro extends MaterialeBiblioteca {
 
     @Override
     public String toString() {
-        return "Libro{id ='" + getId() + "', titolo ='" + getTitolo() + "', annoDiRilascio ='" + getAnnoDiRilascio() +"', disponibilita ='" + getDisponibilita() + "Isbn ='" + isbn + "', pagine ='" + pagine +"', riferimentoAutore ='" + riferimentoAutore + "'}";
+        return "Libro{ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() +"', DISPONIBILITÀ='" + getDisponibilita() + "', ISBN ='" + isbn + "', PAGINE ='" + pagine +"', RIFERIMENTO AUTORE [" + riferimentoAutore + "]}";
     }
 }
