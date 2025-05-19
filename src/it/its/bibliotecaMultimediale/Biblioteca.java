@@ -25,12 +25,15 @@ public class Biblioteca {
     }
 
 //    modificatore d'accesso, tipo ritorno, nome metodo, parametri
-    public List<MaterialeBiblioteca> ricercaMateriale (String titolo) {
+    public List<MaterialeBiblioteca> ricercaMateriale (String titolo) throws Exception{
         List<MaterialeBiblioteca> ricercaTitolo = new ArrayList<>();
         for (MaterialeBiblioteca materialeBiblioteca : collezioneMateriale) {
             if (materialeBiblioteca.getTitolo().equals(titolo)) {
                 ricercaTitolo.add(materialeBiblioteca);
             }
+        }
+        if (ricercaTitolo.isEmpty()) {
+            throw new NoItemExeption("Libro/DVD non trovato");
         }
         return ricercaTitolo;
     }

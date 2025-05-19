@@ -1,11 +1,10 @@
 package it.its.bibliotecaMultimediale;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
-import java.util.SimpleTimeZone;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -32,6 +31,8 @@ public class Main {
 
             switch (scelta) {
                 case 0:
+                    System.out.println("Grazie per aver utilizzato la nostra applicazione.");
+                    break;
                 case 1:
                     aggiungiMateriale(scanner, biblioteca);
                     break;
@@ -420,7 +421,7 @@ public class Main {
         int sceltaMateriale = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Inserisci id:");
-        Long id = scanner.nextLong();
+        long id = scanner.nextLong();
         scanner.nextLine();
         System.out.println("Inserisci titolo:");
         String titolo = scanner.nextLine();
@@ -481,8 +482,14 @@ public class Main {
         System.out.println("Data di nascita(GG/MM/AAAA): ");
         String dataDiNascita = scanner.nextLine();
         DateTimeFormatter formatoItaliano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dataItaliana = LocalDate.parse(dataDiNascita, formatoItaliano);
-        return new Autore(nome, cognome, dataItaliana);
+        try {
+            LocalDate dataItaliana = LocalDate.parse(dataDiNascita, formatoItaliano);
+            return new Autore(nome, cognome, dataItaliana);
+        }catch (DateTimeException ex){
+            System.out.println("Data non valida!");
+            return new Autore(nome, cognome, null);
+        }
+
     }
 
     private static void richiediNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
@@ -495,6 +502,13 @@ public class Main {
     }
 
     private static void ricercaMateriale(Biblioteca biblioteca, Scanner scanner) {
+        String titolo = scanner.nextLine();
+        try {
+            List<MaterialeBiblioteca> risultatoTitolo = biblioteca.ricercaMateriale(titolo);
+            System.out.println("Risultato della ricerca: " + titolo);
+        } catch (Exception e) {
+           System.out.println("Non esiste nessun materiale con questo titolo");
+        }
     }
 
     private static void aggiungiUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
