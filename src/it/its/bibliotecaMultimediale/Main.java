@@ -1,12 +1,50 @@
 package it.its.bibliotecaMultimediale;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        System.out.println("""
+                Benvenuto in Biblioteca Multimediale\s
+                Seleziona:\s
+                1) Aggiungi Materiale\s
+                2) Aggiungi Utente\s
+                3) Ricerca Materiale\s
+                4) Ricerca Utente\s
+                5) Restituzione Noleggio\s
+                6) Richiedi Noleggio""");
+        Scanner scanner = new Scanner(System.in);
+        int scelta = scanner.nextInt();
+        scanner.nextLine();
         Biblioteca biblioteca = new Biblioteca();
+        GestioneUtenti gestioneUtenti = new GestioneUtenti();
+        GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
+        switch (scelta) {
+            case 1:
+                Main.aggiungiMateriale(biblioteca, scanner);
+                break;
+            case 2:
+                Main.aggiungiUtente(gestioneUtenti, scanner);
+                break;
+            case 3:
+                Main.ricercaMateriale(biblioteca, scanner);
+                break;
+            case 4:
+                Main.ricercaUtente(gestioneUtenti, scanner);
+                break;
+            case 5:
+                Main.restituzioneNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
+                break;
+            case 6:
+                Main.richiediNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
+                break;
+            default:
+                System.out.println("Scelta non valida");
+
+        }
 
 //        registi DVD
         Autore spielberg = new Autore("Steven", "Spielberg", LocalDate.of(1946, 12, 18));
@@ -365,5 +403,23 @@ public class Main {
         System.out.println("Lista completa della biblioteca:");
         System.out.println(biblioteca.stampaCollezioneMateriale());
 
+    }
+
+    private static void richiediNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
+    }
+
+    private static void restituzioneNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
+    }
+
+    private static void ricercaUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
+    }
+
+    private static void ricercaMateriale(Biblioteca biblioteca, Scanner scanner) {
+    }
+
+    private static void aggiungiUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
+    }
+
+    private static void aggiungiMateriale(Biblioteca biblioteca, Scanner scanner) {
     }
 }

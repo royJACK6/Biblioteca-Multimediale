@@ -7,47 +7,19 @@ import java.util.Set;
 
 public class Biblioteca {
     private final Set<MaterialeBiblioteca> collezioneMateriale;
-    private final Set<Utente> collezioneUtenti;
-    private final Set<Noleggio> collezioneNoleggi;
 
     public Biblioteca() {
         this.collezioneMateriale = new HashSet<>();
-        this.collezioneUtenti = new HashSet<>();
-        this.collezioneNoleggi = new HashSet<>();
     }
 
     public void aggiungiMateriali(MaterialeBiblioteca nuovoMateriale) {
         collezioneMateriale.add(nuovoMateriale);
     }
 
-    public void aggiungiUtente(Utente nuovoUtente) {
-        collezioneUtenti.add(nuovoUtente);
-    }
-
-    public void aggiungiNoleggio(Noleggio nuovoNoleggio) {
-        collezioneNoleggi.add(nuovoNoleggio);
-    }
-
     public String stampaCollezioneMateriale() {
         StringBuilder biulder = new StringBuilder();
         for (MaterialeBiblioteca materialeBiblioteca : collezioneMateriale) {
             biulder.append(materialeBiblioteca.toString()).append("\n");
-        }
-        return biulder.toString();
-    }
-
-    public String stampaCollezioneUtenti() {
-        StringBuilder biulder = new StringBuilder();
-        for (Utente utente : collezioneUtenti) {
-            biulder.append(utente.toString()).append("\n");
-        }
-        return biulder.toString();
-    }
-
-    public String stampaCollezioneNoleggi() {
-        StringBuilder biulder = new StringBuilder();
-        for (Noleggio noleggio : collezioneNoleggi) {
-            biulder.append(noleggio.toString()).append("\n");
         }
         return biulder.toString();
     }
@@ -88,5 +60,13 @@ public class Biblioteca {
             }
         }
         return ricercaTipo;
+    }
+
+    public void dettaglio(long id) {
+        for (MaterialeBiblioteca materiale : collezioneMateriale) {
+            if (materiale.getId() == id) {
+                System.out.println("Oggetto/i trovato/i: " + materiale);
+            }
+        }
     }
 }

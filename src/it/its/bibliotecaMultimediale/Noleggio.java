@@ -1,18 +1,18 @@
 package it.its.bibliotecaMultimediale;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Noleggio {
     private final MaterialeBiblioteca riferimentoMateriale;
     private final Utente riferimentoUtente;
-    private final int dataNoleggio;
-    private final int dataRestituzione;
+    private final LocalDate dataNoleggio;
+    private LocalDate dataRestituzione;
 
-    public Noleggio(MaterialeBiblioteca riferimentoMateriale, Utente riferimentoUtente, int dataNoleggio, int dataRestituzione) {
+    public Noleggio(MaterialeBiblioteca riferimentoMateriale, Utente riferimentoUtente, LocalDate dataNoleggio) {
         this.riferimentoMateriale = riferimentoMateriale;
         this.riferimentoUtente = riferimentoUtente;
         this.dataNoleggio = dataNoleggio;
-        this.dataRestituzione = dataRestituzione;
     }
 
     public MaterialeBiblioteca getRiferimentoMateriale() {
@@ -23,12 +23,16 @@ public class Noleggio {
         return riferimentoUtente;
     }
 
-    public int getDataNoleggio() {
+    public LocalDate getDataNoleggio() {
         return dataNoleggio;
     }
 
-    public int getDataRestituzione() {
+    public LocalDate getDataRestituzione() {
         return dataRestituzione;
+    }
+
+    public void setDataRestituzione(LocalDate dataRestituzione) {
+        this.dataRestituzione = dataRestituzione;
     }
 
     @Override
@@ -42,8 +46,8 @@ public class Noleggio {
     public int hashCode() {
         int result = Objects.hashCode(riferimentoMateriale);
         result = 31 * result + Objects.hashCode(riferimentoUtente);
-        result = 31 * result + dataNoleggio;
-        result = 31 * result + dataRestituzione;
+        result = 31 * result + Objects.hashCode(dataNoleggio);
+        result = 31 * result + Objects.hashCode(dataRestituzione);
         return result;
     }
 
@@ -51,4 +55,6 @@ public class Noleggio {
     public String toString() {
         return "Noleggio{riferimentoMateriale ='" + riferimentoMateriale + "', riferimentoUtente ='" + riferimentoUtente +"', dataNoleggio ='" + dataNoleggio + "', dataRestituzione ='" + dataRestituzione +"'}";
     }
+
+
 }
