@@ -1,11 +1,17 @@
 package it.its.bibliotecaMultimediale;
 
 import javax.swing.event.MenuListener;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class DVD extends MaterialeBiblioteca{
+public class DVD extends MaterialeBiblioteca implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final Autore regista;
     private final int durata;
     public enum Genere{
