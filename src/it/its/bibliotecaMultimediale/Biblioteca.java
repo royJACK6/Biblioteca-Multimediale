@@ -72,4 +72,8 @@ public class Biblioteca {
             }
         }
     }
+
+    public Set<MaterialeBiblioteca> getColleziozioneMateriale() {
+        return null;
+    }
 }
