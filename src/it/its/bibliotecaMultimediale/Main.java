@@ -1,50 +1,59 @@
 package it.its.bibliotecaMultimediale;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.SimpleTimeZone;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        System.out.println("""
-                Benvenuto in Biblioteca Multimediale\s
-                Seleziona:\s
-                1) Aggiungi Materiale\s
-                2) Aggiungi Utente\s
-                3) Ricerca Materiale\s
-                4) Ricerca Utente\s
-                5) Restituzione Noleggio\s
-                6) Richiedi Noleggio""");
-        Scanner scanner = new Scanner(System.in);
-        int scelta = scanner.nextInt();
-        scanner.nextLine();
         Biblioteca biblioteca = new Biblioteca();
         GestioneUtenti gestioneUtenti = new GestioneUtenti();
         GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
-        switch (scelta) {
-            case 1:
-                Main.aggiungiMateriale(biblioteca, scanner);
-                break;
-            case 2:
-                Main.aggiungiUtente(gestioneUtenti, scanner);
-                break;
-            case 3:
-                Main.ricercaMateriale(biblioteca, scanner);
-                break;
-            case 4:
-                Main.ricercaUtente(gestioneUtenti, scanner);
-                break;
-            case 5:
-                Main.restituzioneNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
-                break;
-            case 6:
-                Main.richiediNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
-                break;
-            default:
-                System.out.println("Scelta non valida");
+        int scelta = 0;
+        do {
+            System.out.println("""
+                    Benvenuto in Biblioteca Multimediale\s
+                    Seleziona:\s
+                    0) Esci\s
+                    1) Aggiungi Materiale\s
+                    2) Aggiungi Utente\s
+                    3) Ricerca Materiale\s
+                    4) Ricerca Utente\s
+                    5) Restituzione Noleggio\s
+                    6) Richiedi Noleggio""");
+            Scanner scanner = new Scanner(System.in);
+            scelta = scanner.nextInt();
+            scanner.nextLine();
 
-        }
+            switch (scelta) {
+                case 0:
+                case 1:
+                    aggiungiMateriale(scanner, biblioteca);
+                    break;
+                case 2:
+                    Main.aggiungiUtente(gestioneUtenti, scanner);
+                    break;
+                case 3:
+                    Main.ricercaMateriale(biblioteca, scanner);
+                    break;
+                case 4:
+                    Main.ricercaUtente(gestioneUtenti, scanner);
+                    break;
+                case 5:
+                    Main.restituzioneNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
+                    break;
+                case 6:
+                    Main.richiediNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
+                    break;
+                default:
+                    System.out.println("Scelta non valida");
+            }
+        } while (scelta != 0);
 
 //        registi DVD
         Autore spielberg = new Autore("Steven", "Spielberg", LocalDate.of(1946, 12, 18));
@@ -399,10 +408,81 @@ public class Main {
         biblioteca.aggiungiMateriali(colors);
         biblioteca.aggiungiMateriali(mitTechnologyReview);
         biblioteca.aggiungiMateriali(slow);
+    }
 
-        System.out.println("Lista completa della biblioteca:");
-        System.out.println(biblioteca.stampaCollezioneMateriale());
+    private static void aggiungiMateriale(Scanner scanner, Biblioteca biblioteca) {
+        System.out.println("""
+                Seleziona:\s
+                1) DVD\s
+                2) Libro\s
+                3) Rivista\s
+                """);
+        int sceltaMateriale = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Inserisci id:");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+        System.out.println("Inserisci titolo:");
+        String titolo = scanner.nextLine();
+        System.out.println("Inserisci anno di rilascio:");
+        int rilasciato = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Inserisci disponibilità:");
+        int disponibilita = scanner.nextInt();
+        scanner.nextLine();
+        switch (sceltaMateriale) {
+            case 1:
+                System.out.println("Durata(minuti) DVD: ");
+                int durata = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Genere DVD: ");
+                String genere = scanner.nextLine();
+                DVD.Genere genereEnum = DVD.Genere.lookUp(genere);
+                Autore regista = Main.acquisisciAutore(scanner);
+                DVD dvd = new DVD(id, titolo, rilasciato, disponibilita, regista, durata, genereEnum);
+                biblioteca.aggiungiMateriali(dvd);
+                System.out.println("DVD Aggiunto ");
+                break;
+            case 2:
+                System.out.println("ISBN Libro: ");
+                String isbn = scanner.nextLine();
+                System.out.println("Numero pagine: ");
+                int Pagine = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Autore: ");
+                Autore autore = Main.acquisisciAutore(scanner);
+                Libro libro = new Libro(id, titolo, rilasciato, disponibilita, isbn, Pagine, autore);
+                biblioteca.aggiungiMateriali(libro);
+                System.out.println("Libro Aggiunto");
+                break;
+            case 3:
+                System.out.println("Uscita numero: ");
+                int Uscita = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Periodicità: ");
+                String periodicita = scanner.nextLine();
+                Rivista.Periodicita periodicitaEnum = Rivista.Periodicita.lookUp(periodicita);
+                Rivista rivista = new Rivista(id, titolo, rilasciato, disponibilita, Uscita, periodicitaEnum);
+                biblioteca.aggiungiMateriali(rivista);
+                System.out.println("Rivista Aggiunta");
+                break;
+            default: System.out.println("Scelta non valida");
+                break;
+        }
 
+        System.out.println("Aggiunta Materiale completata");
+    }
+
+    private static Autore acquisisciAutore(Scanner scanner) {
+        System.out.println("Nome Autore: ");
+        String nome = scanner.nextLine();
+        System.out.println("Cognome Autore: ");
+        String cognome = scanner.nextLine();
+        System.out.println("Data di nascita(GG/MM/AAAA): ");
+        String dataDiNascita = scanner.nextLine();
+        DateTimeFormatter formatoItaliano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataItaliana = LocalDate.parse(dataDiNascita, formatoItaliano);
+        return new Autore(nome, cognome, dataItaliana);
     }
 
     private static void richiediNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
@@ -418,8 +498,5 @@ public class Main {
     }
 
     private static void aggiungiUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
-    }
-
-    private static void aggiungiMateriale(Biblioteca biblioteca, Scanner scanner) {
     }
 }

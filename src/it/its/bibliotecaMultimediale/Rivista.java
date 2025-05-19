@@ -1,11 +1,30 @@
 package it.its.bibliotecaMultimediale;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Rivista extends MaterialeBiblioteca{
     private final int numeroUscita;
     public enum Periodicita{
-        SETTIMANALE, MENSILE, SEMESTRALE, ANNUALE
+        SETTIMANALE, MENSILE, SEMESTRALE, ANNUALE;
+        public static Map<String, Periodicita> PERIODICITA_MAP = new HashMap<>();
+        static {
+            PERIODICITA_MAP.put("settimanale", SETTIMANALE);
+            PERIODICITA_MAP.put("mensile", MENSILE);
+            PERIODICITA_MAP.put("semestrale", SEMESTRALE);
+            PERIODICITA_MAP.put("annuale", ANNUALE);
+        }
+        public static Periodicita lookUp(String value){
+            if (value == null) throw new IllegalArgumentException("Non Presente");
+            value = value.toLowerCase();
+            Periodicita periodicita = PERIODICITA_MAP.get(value);
+            if (periodicita != null){
+                return periodicita;
+            }else{
+                throw new IllegalArgumentException("Periodicità non valida");
+            }
+        }
     }
     private final Periodicita periodicita;
 
