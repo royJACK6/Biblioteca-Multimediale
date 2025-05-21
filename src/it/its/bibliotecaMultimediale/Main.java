@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         Biblioteca biblioteca = Main.caricaBiblioteca();
         GestioneUtenti gestioneUtenti = Main.caricaUtenti();
-        GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
+        GestioneNoleggi gestioneNoleggi = Main.caricaNoleggi();
         int scelta = 0;
         do {
             System.out.println("""
@@ -60,6 +60,7 @@ public class Main {
         } while (scelta != 0);
         Main.salvaBiblioteca(biblioteca);
         Main.salvaUtente(gestioneUtenti);
+        Main.salvaNoleggio(gestioneNoleggi);
 
     }
 
@@ -327,7 +328,7 @@ public class Main {
             materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() - 1);
             Noleggio noleggio = new Noleggio(materialeBiblioteca, riferimentoUtente, dataPrestito);
             gestioneNoleggi.aggiungiNoleggio(noleggio);
-            System.out.println("Richiesta di noleggio effettuata");
+            System.out.println("Richiesta di noleggio effettuata" + noleggio);
         }
     }
 
@@ -358,7 +359,7 @@ public class Main {
 
 
     private static void salvaNoleggio(GestioneNoleggi gestioneNoleggi) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/Noleggi.txt"))) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/noleggi.txt"))) {
             for (Noleggio noleggio : gestioneNoleggi.getCollezioneNoleggi()) {
                 outputStream.writeObject(noleggio);
             }
@@ -370,7 +371,7 @@ public class Main {
 
     private static GestioneNoleggi caricaNoleggi() {
         GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/Noleggi.txt"))) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/noleggi.txt"))) {
             Noleggio noleggio = null;
             while ((noleggio = (Noleggio) inputStream.readObject()) != null){
                 gestioneNoleggi.aggiungiNoleggio(noleggio);

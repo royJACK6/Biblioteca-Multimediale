@@ -30,6 +30,7 @@ public class Noleggio implements Serializable {
     }
 
     public LocalDate getDataNoleggio() {
+
         return dataNoleggio;
     }
 
@@ -59,6 +60,7 @@ public class Noleggio implements Serializable {
 
     @Override
     public String toString() {
+        
         return """
                 Noleggio:\s
                 riferimento Materiale = %s\s
