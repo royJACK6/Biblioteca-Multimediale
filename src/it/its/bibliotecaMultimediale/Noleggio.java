@@ -3,6 +3,7 @@ package it.its.bibliotecaMultimediale;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Noleggio implements Serializable {
@@ -60,7 +61,9 @@ public class Noleggio implements Serializable {
 
     @Override
     public String toString() {
-        
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataNoleggio = format.format(this.dataNoleggio);
+        String dataRestituzione = format.format(this.dataRestituzione);
         return """
                 Noleggio:\s
                 riferimento Materiale = %s\s

@@ -355,6 +355,7 @@ public class Main {
         } catch (DateTimeException ex) {
             System.out.println("Data non valida!");
         }
+        System.out.println("Noleggio effettuato");
     }
 
 
