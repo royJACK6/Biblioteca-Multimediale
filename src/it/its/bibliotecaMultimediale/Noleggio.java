@@ -59,7 +59,13 @@ public class Noleggio implements Serializable {
 
     @Override
     public String toString() {
-        return "Noleggio{riferimentoMateriale ='" + riferimentoMateriale + "', riferimentoUtente ='" + riferimentoUtente +"', dataNoleggio ='" + dataNoleggio + "', dataRestituzione ='" + dataRestituzione +"'}";
+        return """
+                Noleggio:\s
+                riferimento Materiale = %s\s
+                riferimento Utente =%s \s
+                data Noleggio =%s \s
+                data Restituzione =%s \s
+                """.formatted(riferimentoMateriale, riferimentoUtente, dataNoleggio, dataRestituzione);
     }
 
 

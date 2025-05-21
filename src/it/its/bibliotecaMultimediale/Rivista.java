@@ -34,7 +34,7 @@ public class Rivista extends MaterialeBiblioteca implements Serializable {
     }
     private final Periodicita periodicita;
 
-    public Rivista(long id, String titolo, int annoDiRilascio, int disponibilita, int numeroUscita, Periodicita periodicita) {
+    public Rivista(int id, String titolo, int annoDiRilascio, int disponibilita, int numeroUscita, Periodicita periodicita) {
         super(id, titolo, annoDiRilascio, disponibilita);
         this.numeroUscita = numeroUscita;
         this.periodicita = periodicita;
@@ -66,6 +66,14 @@ public class Rivista extends MaterialeBiblioteca implements Serializable {
 
     @Override
     public String toString() {
-        return "Rivista {ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() +"', DISPONIBILITÀ ='" + getDisponibilita() + "', NUMERO USCITA ='" + numeroUscita + "', PERIODICITÀ [" + periodicita + "]}";
+        return """
+    Rivista:\s
+    ID =%s\s
+    TITOLO =%s\s
+    ANNO DI RILASCIO =%s\s
+    DISPONIBILITÀ =%s\s
+    NUMERO USCITA =%s\s
+    PERIODICITÀ [%s]\s
+    """.formatted(getId(), getTitolo(), getAnnoDiRilascio(), getDisponibilita(), numeroUscita, periodicita);
     }
 }

@@ -24,7 +24,7 @@ public class GestioneNoleggi {
         return builder.toString();
     }
 
-    public void restituzioneNoleggio(long idUtente, long idMateriale, LocalDate dataNoleggio){
+    public void restituzioneNoleggio(int idUtente, long idMateriale, LocalDate dataNoleggio){
         for (Noleggio noleggio : collezioneNoleggi) {
             if (idUtente == noleggio.getRiferimentoUtente().getId()
                 && idMateriale == noleggio.getRiferimentoMateriale().getId()

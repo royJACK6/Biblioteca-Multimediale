@@ -12,7 +12,7 @@ public class Libro extends MaterialeBiblioteca implements Serializable {
     private final int pagine;
     private final Autore riferimentoAutore;
 
-    public Libro(long id, String titolo, int annoDiRilascio, int disponibilita, String isbn, int pagine, Autore riferimentoAutore) {
+    public Libro(int id, String titolo, int annoDiRilascio, int disponibilita, String isbn, int pagine, Autore riferimentoAutore) {
         super(id, titolo, annoDiRilascio, disponibilita);
         this.isbn = isbn;
         this.pagine = pagine;
@@ -48,6 +48,15 @@ public class Libro extends MaterialeBiblioteca implements Serializable {
 
     @Override
     public String toString() {
-        return "Libro{ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() +"', DISPONIBILITÀ='" + getDisponibilita() + "', ISBN ='" + isbn + "', PAGINE ='" + pagine +"', RIFERIMENTO AUTORE [" + riferimentoAutore + "]}";
+        return """
+    Libro:\s
+    ID =%s \s
+    TITOLO =%s \s
+    ANNO DI RILASCIO =%s \s
+    DISPONIBILITÀ =%s\s
+    ISBN =%s\s
+    PAGINE =%s\s
+    RIFERIMENTO AUTORE [%s]%s\s
+    """.formatted(getId(), getTitolo(), getAnnoDiRilascio(), getDisponibilita(), isbn, pagine, riferimentoAutore, "\n");
     }
 }

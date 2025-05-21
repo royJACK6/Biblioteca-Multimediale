@@ -35,7 +35,7 @@ public class DVD extends MaterialeBiblioteca implements Serializable {
     }
     private final Genere genere;
 
-    public DVD(long id, String titolo, int annoDiRilascio, int disponibilita, Autore regista, int durata, Genere genere) {
+    public DVD(int id, String titolo, int annoDiRilascio, int disponibilita, Autore regista, int durata, Genere genere) {
         super(id, titolo, annoDiRilascio, disponibilita);
         this.regista = regista;
         this.durata = durata;
@@ -71,6 +71,16 @@ public class DVD extends MaterialeBiblioteca implements Serializable {
 
     @Override
     public String toString() {
-        return "DVD{ID ='" + getId() + "', TITOLO ='" + getTitolo() + "', ANNO DI RILASCIO ='" + getAnnoDiRilascio() + "', DISPONIBILITA ='" + getDisponibilita() + "', DURATA ='" + durata + "', GENERE ='" + genere + "', REGISTA [" + regista +  "']}";
+        return  """
+                DVD:\s
+                ID =%s\s
+                TITOLO =%s\s
+                ANNO DI RILASCIO =%s\s
+                DISPONIBILITA =%s\s
+                DURATA =%s\s
+                GENERE =%s\s
+                REGISTA\s
+                %s
+                """.formatted(getId(),getTitolo(), getAnnoDiRilascio(), getDisponibilita(), durata, genere, regista);
     }
 }

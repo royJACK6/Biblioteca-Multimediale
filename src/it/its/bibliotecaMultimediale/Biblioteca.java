@@ -65,7 +65,7 @@ public class Biblioteca {
         return ricercaTipo;
     }
 
-    public void dettaglio(long id) {
+    public void dettaglio(int id) {
         for (MaterialeBiblioteca materiale : collezioneMateriale) {
             if (materiale.getId() == id) {
                 System.out.println("Oggetto/i trovato/i: " + materiale);
@@ -74,6 +74,15 @@ public class Biblioteca {
     }
 
     public Set<MaterialeBiblioteca> getColleziozioneMateriale() {
+        return this.collezioneMateriale;
+    }
+
+    public MaterialeBiblioteca ricercaMateriale(int id) {
+        for (MaterialeBiblioteca materiale : collezioneMateriale) {
+            if (materiale.getId() == id) {
+                return materiale;
+            }
+        }
         return null;
     }
 }

@@ -3,6 +3,7 @@ package it.its.bibliotecaMultimediale;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Autore implements Serializable {
 
@@ -32,7 +33,26 @@ public class Autore implements Serializable {
     }
 
     @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof Autore autore)) return false;
+
+        return Objects.equals(nome, autore.nome) && Objects.equals(cognome, autore.cognome) && Objects.equals(dataDiNascita, autore.dataDiNascita);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(nome);
+        result = 31 * result + Objects.hashCode(cognome);
+        result = 31 * result + Objects.hashCode(dataDiNascita);
+        return result;
+    }
+
+    @Override
     public String toString() {
-        return  "NOME ='" + nome + "', COGNOME ='" + cognome + "', DATA DI NASCITA ='" + dataDiNascita +"'";
+        return """
+                NOME =%s\s
+                COGNOME =%s\s
+                DATA DI NASCITA =%s
+                """.formatted(nome, cognome, dataDiNascita);
     }
 }

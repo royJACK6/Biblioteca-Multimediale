@@ -48,6 +48,11 @@ public class Utente implements Serializable {
 
     @Override
     public String toString() {
-        return "Utente{id ='" + id + "', nome ='" + nome + "', cognome ='" + cognome  + "'}";
+        return """
+                Utente:\s
+                ID =%s\s
+                NOME =%s\s
+                COGNOME =%s\s
+                """.formatted(id, nome, cognome);
     }
 }
