@@ -1,10 +1,7 @@
 package it.its.bibliotecaMultimediale;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GestioneNoleggi {
     private final Set<Noleggio> collezioneNoleggi;
@@ -52,5 +49,9 @@ public class GestioneNoleggi {
             }
         }
         return risultato;
+    }
+
+    public Set<Noleggio> getCollezioneNoleggi() {
+        return this.collezioneNoleggi;
     }
 }

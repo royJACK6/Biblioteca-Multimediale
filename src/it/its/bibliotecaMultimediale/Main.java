@@ -176,50 +176,6 @@ public class Main {
 
     }
 
-    private static void richiediNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
-        System.out.println("ID Materiale: ");
-        int id;
-        id = scanner.nextInt();
-        scanner.nextLine();
-        MaterialeBiblioteca materialeBiblioteca = biblioteca.ricercaMateriale((int) id);
-        System.out.println("Inserisci ID Utente: ");
-        id = scanner.nextInt();
-        scanner.nextLine();
-        Utente riferimentoUtente = gestioneUtenti.ricercaUtente((int) id);
-        LocalDate dataPrestito = LocalDate.now();
-        if (riferimentoUtente != null && materialeBiblioteca != null && materialeBiblioteca.getDisponibilita() > 0) {
-            materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() - 1);
-            Noleggio noleggio = new Noleggio(materialeBiblioteca, riferimentoUtente, dataPrestito);
-            gestioneNoleggi.aggiungiNoleggio(noleggio);
-            System.out.println("Richiesta di noleggio effettuata");
-        }
-    }
-
-    private static void restituzioneNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
-        System.out.println("ID materiale");
-        int id;
-        id = scanner.nextInt();
-        scanner.nextLine();
-        MaterialeBiblioteca materialeBiblioteca = biblioteca.ricercaMateriale((int) id);
-        System.out.println("ID Utente: ");
-        id = scanner.nextInt();
-        scanner.nextLine();
-        Utente riferimentoUtente = gestioneUtenti.ricercaUtente((int) id);
-        System.out.println("Data Noleggio(dd/mm/aaaa):");
-        String dataNoleggio = scanner.nextLine();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dataNoleggioItalia = null;
-        try {
-            dataNoleggioItalia = LocalDate.parse(dataNoleggio, format);
-            if (riferimentoUtente != null && materialeBiblioteca != null) {
-                materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() + 1);
-                gestioneNoleggi.restituzioneNoleggio(riferimentoUtente.getId(), materialeBiblioteca.getId(), dataNoleggioItalia);
-            }
-        } catch (DateTimeException ex) {
-            System.out.println("Data non valida!");
-        }
-    }
-
     private static void ricercaUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
         System.out.println("""
                 Ricerca per:
@@ -331,7 +287,7 @@ public class Main {
                 outputStream.writeObject(utente);
             }
         }catch (IOException ioEx){
-            System.out.println("Errore salvataggio biblioteca");
+            System.out.println("Errore salvataggio Utenti");
             ioEx.printStackTrace();
         }
     }
@@ -343,17 +299,93 @@ public class Main {
             while ((utente = (Utente) inputStream.readObject()) != null){
                 gestioneUtenti.aggiungiUtente(utente);
             }
-            System.out.println("Biblioteca caricata" + gestioneUtenti.getCollezioneUtente().size());
+            System.out.println("Utenti caricatati" + gestioneUtenti.getCollezioneUtente().size());
             return gestioneUtenti;
         } catch (EOFException eofException) {
             System.out.println("End of file raggiunto");
         }catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
-            System.out.println("Errore caricamento biblioteca");
+            System.out.println("Errore caricamento Utenti");
             ioEx.printStackTrace();
         } finally {
-            System.out.println("Biblioteca caricata");
+            System.out.println("Utenti caricatati");
         }
         return gestioneUtenti;
+    }
+
+    private static void richiediNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
+        System.out.println("ID Materiale: ");
+        int id;
+        id = scanner.nextInt();
+        scanner.nextLine();
+        MaterialeBiblioteca materialeBiblioteca = biblioteca.ricercaMateriale((int) id);
+        System.out.println("Inserisci ID Utente: ");
+        id = scanner.nextInt();
+        scanner.nextLine();
+        Utente riferimentoUtente = gestioneUtenti.ricercaUtente((int) id);
+        LocalDate dataPrestito = LocalDate.now();
+        if (riferimentoUtente != null && materialeBiblioteca != null && materialeBiblioteca.getDisponibilita() > 0) {
+            materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() - 1);
+            Noleggio noleggio = new Noleggio(materialeBiblioteca, riferimentoUtente, dataPrestito);
+            gestioneNoleggi.aggiungiNoleggio(noleggio);
+            System.out.println("Richiesta di noleggio effettuata");
+        }
+    }
+
+    private static void restituzioneNoleggio(Biblioteca biblioteca, GestioneNoleggi gestioneNoleggi, GestioneUtenti gestioneUtenti, Scanner scanner) {
+        System.out.println("ID materiale");
+        int id;
+        id = scanner.nextInt();
+        scanner.nextLine();
+        MaterialeBiblioteca materialeBiblioteca = biblioteca.ricercaMateriale((int) id);
+        System.out.println("ID Utente: ");
+        id = scanner.nextInt();
+        scanner.nextLine();
+        Utente riferimentoUtente = gestioneUtenti.ricercaUtente((int) id);
+        System.out.println("Data Noleggio(dd/mm/aaaa):");
+        String dataNoleggio = scanner.nextLine();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataNoleggioItalia = null;
+        try {
+            dataNoleggioItalia = LocalDate.parse(dataNoleggio, format);
+            if (riferimentoUtente != null && materialeBiblioteca != null) {
+                materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() + 1);
+                gestioneNoleggi.restituzioneNoleggio(riferimentoUtente.getId(), materialeBiblioteca.getId(), dataNoleggioItalia);
+            }
+        } catch (DateTimeException ex) {
+            System.out.println("Data non valida!");
+        }
+    }
+
+
+    private static void salvaNoleggio(GestioneNoleggi gestioneNoleggi) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/Noleggi.txt"))) {
+            for (Noleggio noleggio : gestioneNoleggi.getCollezioneNoleggi()) {
+                outputStream.writeObject(noleggio);
+            }
+        }catch (IOException ioEx){
+            System.out.println("Errore salvataggio Noleggio");
+            ioEx.printStackTrace();
+        }
+    }
+
+    private static GestioneNoleggi caricaNoleggi() {
+        GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/Noleggi.txt"))) {
+            Noleggio noleggio = null;
+            while ((noleggio = (Noleggio) inputStream.readObject()) != null){
+                gestioneNoleggi.aggiungiNoleggio(noleggio);
+            }
+            System.out.println("Noleggi caricatati" + gestioneNoleggi.getCollezioneNoleggi().size());
+            return gestioneNoleggi;
+        } catch (EOFException eofException) {
+            System.out.println("End of file raggiunto");
+        }catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
+            System.out.println("Errore caricamento Noleggi");
+            ioEx.printStackTrace();
+        } finally {
+            System.out.println("Noleggi caricatati");
+        }
+        return gestioneNoleggi;
     }
 
 }
