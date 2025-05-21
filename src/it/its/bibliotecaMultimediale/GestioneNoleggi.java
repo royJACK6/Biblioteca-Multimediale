@@ -21,15 +21,17 @@ public class GestioneNoleggi {
         return builder.toString();
     }
 
-    public void restituzioneNoleggio(int idUtente, long idMateriale, LocalDate dataNoleggio){
+    public Noleggio restituzioneNoleggio(int idUtente, long idMateriale, LocalDate dataNoleggio){
         for (Noleggio noleggio : collezioneNoleggi) {
             if (idUtente == noleggio.getRiferimentoUtente().getId()
                 && idMateriale == noleggio.getRiferimentoMateriale().getId()
                 && dataNoleggio.equals(noleggio.getDataNoleggio())
                 && noleggio.getDataRestituzione() == null){
                 noleggio.setDataRestituzione(LocalDate.now());
+                return noleggio;
             } ;
         }
+        return null;
     }
 
     public List<Noleggio> ricercaNoleggi(Utente utente) {

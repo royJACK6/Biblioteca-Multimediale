@@ -61,9 +61,13 @@ public class Noleggio implements Serializable {
 
     @Override
     public String toString() {
+
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dataNoleggio = format.format(this.dataNoleggio);
-        String dataRestituzione = format.format(this.dataRestituzione);
+        String dataRestituzione = "Non restituito";
+        if(this.dataRestituzione != null)
+            dataRestituzione = format.format(this.dataRestituzione);
+
         return """
                 Noleggio:\s
                 riferimento Materiale = %s\s

@@ -69,7 +69,7 @@ public class Main {
             for (MaterialeBiblioteca materiale : biblioteca.getColleziozioneMateriale()) {
                 outputStream.writeObject(materiale);
             }
-        }catch (IOException ioEx){
+        } catch (IOException ioEx) {
             System.out.println("Errore salvataggio biblioteca");
             ioEx.printStackTrace();
         }
@@ -79,14 +79,14 @@ public class Main {
         Biblioteca biblioteca = new Biblioteca();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/biblioteca.txt"))) {
             MaterialeBiblioteca materialeBiblioteca = null;
-            while ((materialeBiblioteca = (MaterialeBiblioteca) inputStream.readObject()) != null){
-            biblioteca.aggiungiMateriali(materialeBiblioteca);
+            while ((materialeBiblioteca = (MaterialeBiblioteca) inputStream.readObject()) != null) {
+                biblioteca.aggiungiMateriali(materialeBiblioteca);
             }
             System.out.println("Biblioteca caricata" + biblioteca.getColleziozioneMateriale().size());
             return biblioteca;
         } catch (EOFException eofException) {
             System.out.println("End of file raggiunto");
-        }catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
+        } catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
             System.out.println("Errore caricamento biblioteca");
             ioEx.printStackTrace();
         } finally {
@@ -187,17 +187,17 @@ public class Main {
                 """);
         int scelta = scanner.nextInt();
         scanner.nextLine();
-        switch (scelta){
+        switch (scelta) {
             case 0:
                 System.out.println("Esci");
                 break;
             case 1:
                 System.out.println("Inserisci ID: ");
                 int id = scanner.nextInt();
-                try{
+                try {
                     Utente risultato = gestioneUtenti.ricercaUtente(id);
                     System.out.println("Risultato della ricerca: " + risultato);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Nessun utente con questo ID");
                 }
                 break;
@@ -219,7 +219,7 @@ public class Main {
                 try {
                     List<Utente> risultato = gestioneUtenti.ricercaUtente(ricerca);
                     System.out.println("Risultato della ricerca: " + risultato);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Nessun utente con questo NOME/COGNOME");
                 }
 
@@ -257,7 +257,7 @@ public class Main {
                 }
             case 3:
                 System.out.println("Inserisci Tipologia: ");
-                Map<String, Class<? extends MaterialeBiblioteca >> tipologiaMap = new HashMap<>();
+                Map<String, Class<? extends MaterialeBiblioteca>> tipologiaMap = new HashMap<>();
                 tipologiaMap.put("dvd", DVD.class);
                 tipologiaMap.put("libro", Libro.class);
                 tipologiaMap.put("rivista", Rivista.class);
@@ -270,6 +270,7 @@ public class Main {
                 System.out.println("Risultato della ricerca: " + risultato);
         }
     }
+
     private static void aggiungiUtente(GestioneUtenti gestioneUtenti, Scanner scanner) {
         System.out.println("ID:");
         int id = scanner.nextInt();
@@ -279,15 +280,16 @@ public class Main {
         System.out.println("COGNOME:");
         String cognome = scanner.nextLine();
         Utente nuovoUtente = new Utente(id, nome, cognome);
-                gestioneUtenti.aggiungiUtente(nuovoUtente);
+        gestioneUtenti.aggiungiUtente(nuovoUtente);
         System.out.println("Utente aggiunto" + nuovoUtente);
     }
+
     private static void salvaUtente(GestioneUtenti gestioneUtenti) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/utenti.txt"))) {
             for (Utente utente : gestioneUtenti.getCollezioneUtente()) {
                 outputStream.writeObject(utente);
             }
-        }catch (IOException ioEx){
+        } catch (IOException ioEx) {
             System.out.println("Errore salvataggio Utenti");
             ioEx.printStackTrace();
         }
@@ -297,14 +299,14 @@ public class Main {
         GestioneUtenti gestioneUtenti = new GestioneUtenti();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/utenti.txt"))) {
             Utente utente = null;
-            while ((utente = (Utente) inputStream.readObject()) != null){
+            while ((utente = (Utente) inputStream.readObject()) != null) {
                 gestioneUtenti.aggiungiUtente(utente);
             }
             System.out.println("Utenti caricatati" + gestioneUtenti.getCollezioneUtente().size());
             return gestioneUtenti;
         } catch (EOFException eofException) {
             System.out.println("End of file raggiunto");
-        }catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
+        } catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
             System.out.println("Errore caricamento Utenti");
             ioEx.printStackTrace();
         } finally {
@@ -350,12 +352,14 @@ public class Main {
             dataNoleggioItalia = LocalDate.parse(dataNoleggio, format);
             if (riferimentoUtente != null && materialeBiblioteca != null) {
                 materialeBiblioteca.setDisponibilita(materialeBiblioteca.getDisponibilita() + 1);
-                gestioneNoleggi.restituzioneNoleggio(riferimentoUtente.getId(), materialeBiblioteca.getId(), dataNoleggioItalia);
+                Noleggio noleggio = gestioneNoleggi.restituzioneNoleggio(riferimentoUtente.getId(), materialeBiblioteca.getId(), dataNoleggioItalia);
+                if (noleggio != null) {
+                    System.out.println("Restituzione effettuato" + noleggio);
+                }else System.out.println("Restituzione non effettuata");
             }
         } catch (DateTimeException ex) {
             System.out.println("Data non valida!");
         }
-        System.out.println("Noleggio effettuato");
     }
 
 
@@ -364,7 +368,7 @@ public class Main {
             for (Noleggio noleggio : gestioneNoleggi.getCollezioneNoleggi()) {
                 outputStream.writeObject(noleggio);
             }
-        }catch (IOException ioEx){
+        } catch (IOException ioEx) {
             System.out.println("Errore salvataggio Noleggio");
             ioEx.printStackTrace();
         }
@@ -374,14 +378,14 @@ public class Main {
         GestioneNoleggi gestioneNoleggi = new GestioneNoleggi();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Users/A872/IdeaProjects/BibliotecaMultimediale/resource/noleggi.txt"))) {
             Noleggio noleggio = null;
-            while ((noleggio = (Noleggio) inputStream.readObject()) != null){
+            while ((noleggio = (Noleggio) inputStream.readObject()) != null) {
                 gestioneNoleggi.aggiungiNoleggio(noleggio);
             }
             System.out.println("Noleggi caricatati" + gestioneNoleggi.getCollezioneNoleggi().size());
             return gestioneNoleggi;
         } catch (EOFException eofException) {
             System.out.println("End of file raggiunto");
-        }catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
+        } catch (IOException | ClassCastException | ClassNotFoundException ioEx) {
             System.out.println("Errore caricamento Noleggi");
             ioEx.printStackTrace();
         } finally {
