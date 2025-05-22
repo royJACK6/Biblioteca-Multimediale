@@ -27,7 +27,8 @@ public class Main {
                     3) Ricerca Materiale
                     4) Ricerca Utente
                     5) Richiedi Noleggio
-                    6) Restituzione Noleggio""");
+                    6) Restituzione Noleggio
+                    7) Ricerca Noleggio""");
             Scanner scanner = new Scanner(System.in);
             scelta = scanner.nextInt();
             scanner.nextLine();
@@ -54,6 +55,8 @@ public class Main {
                 case 6:
                     Main.restituzioneNoleggio(biblioteca, gestioneNoleggi, gestioneUtenti, scanner);
                     break;
+                case 7:
+                    Main.ricercaNoleggio(gestioneNoleggi, scanner);
                 default:
                     System.out.println("Scelta non valida");
             }
@@ -394,4 +397,25 @@ public class Main {
         return gestioneNoleggi;
     }
 
+    private static void ricercaNoleggio(GestioneNoleggi gestioneNoleggi, Scanner scanner) {
+        System.out.println("ID Utente: ");
+        int idUtente;
+        idUtente = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("ID Materiale; ");
+        int idMateriale;
+        idMateriale = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Data Noleggio(dd/mm/aaaa):");
+        String dataNoleggio = scanner.nextLine();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate dataNoleggioItalia = LocalDate.parse(dataNoleggio, format);
+            Noleggio risultato = gestioneNoleggi.ricercaNoleggio(idUtente, idMateriale, dataNoleggioItalia);
+            System.out.println("Risultato: " + risultato);
+        } catch (DateTimeException ex) {
+            System.out.println("Data non valida!");
+        }
+        System.out.println("Ricerca Noleggio completata");
+    }
 }

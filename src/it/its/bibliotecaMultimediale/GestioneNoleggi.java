@@ -53,6 +53,18 @@ public class GestioneNoleggi {
         return risultato;
     }
 
+    public Noleggio ricercaNoleggio(int idUtente, int idMateriale, LocalDate dataNoleggio){
+        for (Noleggio noleggio : collezioneNoleggi) {
+            if (idUtente == noleggio.getRiferimentoUtente().getId()
+                    && idMateriale == noleggio.getRiferimentoMateriale().getId()
+                    && dataNoleggio.equals(noleggio.getDataNoleggio())
+                    && noleggio.getDataRestituzione() == null){
+                return noleggio;
+            } ;
+        }
+        return null;
+    }
+
     public Set<Noleggio> getCollezioneNoleggi() {
         return this.collezioneNoleggi;
     }

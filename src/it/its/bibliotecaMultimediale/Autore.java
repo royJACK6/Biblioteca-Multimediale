@@ -2,7 +2,9 @@ package it.its.bibliotecaMultimediale;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Autore implements Serializable {
@@ -49,10 +51,18 @@ public class Autore implements Serializable {
 
     @Override
     public String toString() {
-        return """
-                NOME =%s\s
-                COGNOME =%s\s
-                DATA DI NASCITA =%s
-                """.formatted(nome, cognome, dataDiNascita);
+        DateTimeFormatter formatoItaliano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            String dataItaliana = formatoItaliano.format(dataDiNascita);
+
+            return """
+                    NOME =%s\s
+                    COGNOME =%s\s
+                    DATA DI NASCITA =%s
+                    """.formatted(nome, cognome, dataItaliana);
+        }catch (DateTimeException ex) {
+            System.out.println("Data non valida!");
+        }
+        return null;
     }
 }

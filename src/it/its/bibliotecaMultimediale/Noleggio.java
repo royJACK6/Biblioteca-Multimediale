@@ -71,7 +71,7 @@ public class Noleggio implements Serializable {
         return """
                 Noleggio:\s
                 riferimento Materiale = %s\s
-                riferimento Utente =%s \s
+                riferimento %s \s
                 data Noleggio =%s \s
                 data Restituzione =%s \s
                 """.formatted(riferimentoMateriale, riferimentoUtente, dataNoleggio, dataRestituzione);
